@@ -1,17 +1,19 @@
+
 {
+  "taskRoleArn": "arn:aws:iam::621733431345:role/ecstaskrole-efs",
   "executionRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
   "containerDefinitions": [
     {
-      "logConfiguration" {
-	"logDriver": "awslogs",
+      "logConfiguration": {
+	    "logDriver": "awslogs",
         "options": {
 	  "awslogs-group": "/ecs/microservice-demo",
-	  "awslogs-region": "us-east-1"
+	  "awslogs-region": "us-east-1",
 	  "awslogs-stream-prefix": "ecs"
 	}
 		
     },
-    {
+  
       "portMappings": [
         {
           "hostPort": 9001,
@@ -31,20 +33,20 @@
       "name": "metalapp"
     },
 
-###adding side container###
+
     {
       "logConfiguration": {
-        "logDriver": "awslogs"
-	"options: {
+        "logDriver": "awslogs",
+	"options": {
 	  "awslogs-group": "/ecs/microservice-demo",
-	  "awslogs-region": "us-east-1"
+	  "awslogs-region": "us-east-1",
 	  "awslogs-stream-prefix": "metal/xray"
 	}
       },
       "portMappings": [
       {
-	"protocol": "udp"
-	"containerPort": "2000"
+	"protocol": "udp",
+	"containerPort": 2000
       }   
     ],
     "cpu": 32,
@@ -52,28 +54,12 @@
     "image": "amazon/aws-xray-daemon",
     "name": "xray-daemon"	
    } 
-###### adding side conatiner#######  	
+
   ],
-  "taskRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
-  "compatibilities": [
-    "EC2"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:621733431345:task-definition/td-metalapp:1",
   "family": "td-metalapp",
-  "requiresAttributes": [
-    {
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "name": "ecs.capability.task-eni"
-    }
-  ],
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": "awsvpc",
-  "status": "ACTIVE",
+  "networkMode": "awsvpc"
 }
+
