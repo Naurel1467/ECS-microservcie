@@ -1,0 +1,45 @@
+{  
+  "executionRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 9002,
+          "protocol": "tcp",
+          "containerPort": 9002
+        }
+      ],
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "9002"
+        }
+      ],
+      "memory": 128,
+      "image": "gkoenig/popapp:latest",
+      "essential": true,
+      "name": "popapp"
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:621733431345:task-definition/td-popapp:2",
+  "family": "td-popapp",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": "awsvpc",
+}

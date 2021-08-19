@@ -1,0 +1,49 @@
+{
+  "executionRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 9000
+        }
+      ],
+      "environment": [
+        {
+          "name": "METAL_HOST",
+          "value": <<METAL_PRIVATE-IP>>:9001"
+        },
+        {
+          "name": "POP_HOST",
+          "value": <<pop-private-ip>>:9002"
+        },
+        {
+          "name": "PORT",
+          "value": "9000"
+        }
+      ],
+      "memory": 128,
+      "image": "gkoenig/jukeboxapp:latest",
+      "essential": true,
+      "name": "jukebox"
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::621733431345:role/EcsTaskEscecutionRole",
+  "compatibilities": [
+    "EXTERNAL",
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:621733431345:task-definition/td-jukebox:2",
+  "family": "td-jukebox",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": "bridge",
+  "status": "ACTIVE",
+}
